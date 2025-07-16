@@ -1,0 +1,51 @@
+{
+  "name": "famous-ssr-server-for-vite-react",
+  "scripts": {
+    "dev": "pnpm run build:client && node src/server/server.js",
+    "dev:server": "nodemon src/server/server.js",
+     "build:client": "npx vite build",
+    "build": "cd src/client && pnpm run build:client && cd ../../ && pnpm run start",
+    "start": "node dist/server/server.js"
+  },
+  "type": "commonjs",
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.11",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
+    "fs": "0.0.1-security",
+    "ignore-styles": "^5.0.1",
+    "lucide-react": "^0.525.0",
+    "path-to-regexp": "6.2.1",
+    "postcss~": "link:\u001b[200~@tailwindcss/postcss~",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-ga": "^3.3.1",
+    "react-helmet": "^6.1.0",
+    "react-router": "^7.6.3",
+    "react-router-dom": "^7.6.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.0.13",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/react-helmet": "^6.1.11",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/serve-static": "^1.15.8",
+    "@vitejs/plugin-react": "^4.6.0",
+    "autoprefixer": "^10.4.21",
+    "babel-register": "^6.26.0",
+    "esbuild-register": "^3.6.0",
+    "ignore": "^7.0.5",
+    "nodemon": "^3.1.10",
+    "postcss": "^8.5.6",
+    "styles": "^0.2.1",
+    "tailwindcss": "^4.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "vite": "^7.0.4"
+  }
+}
