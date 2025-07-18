@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://www.famoustech.xyz/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 20 

@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "pnpm run build:client && node src/server/server.js",
     "dev:server": "nodemon src/server/server.js",
-     "build:client": "npx vite build",
+    "build:client": "npx vite build",
     "build": "cd src/client && pnpm run build:client && cd ../../ && pnpm run start",
     "start": "node dist/server/server.js"
   },

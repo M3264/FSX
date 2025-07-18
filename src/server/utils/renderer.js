@@ -1,7 +1,7 @@
 const React = require('react');
 const { renderToString } = require('react-dom/server');
 const { StaticRouter } = require('react-router-dom');
-const Getter = require('../resolver');
+const Getter = require('./resolver');
 
 // Import du composant App
 const App = require('../../client/App').default;
@@ -126,6 +126,7 @@ const getMetaData = (pageMeta, assets) => {
   return `
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicons/icon.png" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="description" content="${pageMeta.description}" />
     <meta name="keywords" content="Famous-Tech, développement web Haïti, applications mobiles, solutions digitales" />
@@ -143,13 +144,13 @@ const getMetaData = (pageMeta, assets) => {
     <meta name="twitter:image" content="https://www.famoustech.xyz/logo.png" />
     <meta name="twitter:creator" content="@famoustech_ht" />
     <title>${pageMeta.title}</title>
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/favicons/site.webmanifest" />
     <link rel="canonical" href="${pageMeta.url}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">${JSON.stringify(structuredData)}</script>

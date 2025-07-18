@@ -45,7 +45,7 @@ function About() {
             {/* Image à droite */}
             <div className="relative flex justify-center">
               <img
-                src="/images/portrait.png"
+                src="/images/portrait.webp"
                 alt="Portrait de Azor Wollden's Habby-Shaï - FAMOUS-TECH"
                 className="rounded-2xl shadow-2xl object-cover max-h-[500px] w-auto mx-auto"
               />

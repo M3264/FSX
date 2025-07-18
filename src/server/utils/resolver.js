@@ -3,7 +3,7 @@ const path  = require('path')
 
 
 async function GetManifest(){
-    const chemin = path.resolve('./src/client/public/assets/assets/.vite/manifest.json');
+    const chemin = path.resolve('./src/client/public/assets/.vite/manifest.json');
 
     try {
 
