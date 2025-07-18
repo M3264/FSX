@@ -13,7 +13,7 @@ export default defineConfig({
     },
     rollupOptions: {
       input: {
-        main: './main.tsx',
+        main: "main.tsx"
       },
       output: {
         assetFileNames: (assetInfo) => {
