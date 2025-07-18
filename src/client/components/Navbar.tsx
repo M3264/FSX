@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
-
-let ReactGA: typeof import('react-ga') | undefined = undefined;
-if (typeof window !== 'undefined') {
-  ReactGA = require('react-ga');
-}
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,13 +19,7 @@ function Navbar() {
 
   // Fonction pour suivre les clics sur les liens de navigation
   const handleNavClick = (label: string) => {
-    if (ReactGA) {
-      ReactGA.event({
-        category: 'Navigation',
-        action: 'Clic sur lien de navigation',
-        label: label
-      });
-    }
+    console.log(`Clicked: ${label}`);
   };
 
   return (
@@ -68,14 +58,8 @@ function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => {
+                console.log("Navbar clicked");
                 setIsMenuOpen(!isMenuOpen);
-                if (ReactGA) {
-                  ReactGA.event({
-                    category: 'Navigation',
-                    action: 'Toggle Menu Mobile',
-                    label: isMenuOpen ? 'Fermer' : 'Ouvrir'
-                  });
-                }
               }}
               className="text-gray-300 hover:text-white"
             >

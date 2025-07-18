@@ -1,21 +1,10 @@
 import React from 'react';
 import { Mail, Clock, Phone } from 'lucide-react';
 
-let ReactGA: typeof import('react-ga') | undefined = undefined;
-if (typeof window !== 'undefined') {
-  ReactGA = require('react-ga');
-}
-
 function Footer() {
   // Fonction pour suivre les clics sur les liens du footer
   const handleFooterLinkClick = (linkName: string) => {
-    if (ReactGA) {
-      ReactGA.event({
-        category: 'Footer',
-        action: 'Clic sur lien',
-        label: linkName
-      });
-    }
+    console.log(`Clicked footer link: ${linkName}`);
   };
 
   return (
@@ -77,8 +66,8 @@ function Footer() {
         </div>
       </div>
       
-      <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-        <p>© 2025 FAMOUS-TECH. Tous droits réservés.</p>
+      <div className="mt-8 text-center text-gray-500 text-sm">
+        &copy; {new Date().getFullYear()} FAMOUS-TECH. Tous droits réservés.
       </div>
     </footer>
   );
