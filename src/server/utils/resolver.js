@@ -27,7 +27,7 @@ async function GetManifest(){
 
 
 async function GetCSS(){
-    const chemin = path.resolve('./src/client/public/assets/assets/.vite/manifest.json');
+    const chemin = path.resolve('./src/client/public/assets/.vite/manifest.json');
     try {
         content = await readFile(chemin, 'utf-8');
         const manifest = JSON.parse(content)

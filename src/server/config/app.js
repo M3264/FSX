@@ -2,34 +2,61 @@ const express = require('express');
 const errorHandler = require('../middleware/errorHandler');
 const path = require('path');
 const compression = require('compression');
-const helmet = require('helmet')
+const helmet = require('helmet');
+const { createClient } = require('redis');
+
 
 let cacheOptions = {
   maxAge: '2y',
-  etag: false,
-  
-}
-
+  etag: false
+};
 
 const app = express();
 
+async function startRedis(){
 
-app.use(helmet())
+   const redis = createClient(); // Default it's localhost:6379, so i don't need to add custom Settings like PG, It's so coooool.
+   await redis.connect()
+   console.log("REDIS CONNECTED SUCCESFULLY")
+   return redis;
+}
+
+startRedis();
+app.use(helmet());
+
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
-    scriptSrc: ["'self'", "https://cdn.tailwindcss.com", "unsafe-inline", "https://googletagmanager.com", "https://www.google-analytics.com", "https://www.gstatic.com"],
-    imgSrc: ["'self'", "data:", "https://unsplash.com", "https://images.unsplash.com", "https://files.catbox.moe", "https://cdn.famoustech.xyz" ], // I will create a CDN in future
-    styleSrc: ["'self'", "'unsafe-inline'", "https://cdn.tailwindcss.com"],
+    scriptSrc: [
+      "'self'", 
+      "https://cdn.tailwindcss.com", 
+      "https://googletagmanager.com", 
+      "https://www.google-analytics.com", 
+      "https://www.gstatic.com"
+    ],
+    imgSrc: [
+      "'self'", 
+      "data:", 
+      "https://unsplash.com", 
+      "https://images.unsplash.com", 
+      "https://files.catbox.moe", 
+      "https://media.istockphoto.com", 
+      "https://cdn.famoustech.xyz"
+    ],
+    styleSrc: [
+      "'self'", 
+      "'unsafe-inline'", 
+      "https://cdn.tailwindcss.com"
+    ],
     fontSrc: ["'self'"]
   }
-}))
-app.use(compression())
+}));
 
-// server my assets and favicons
+app.use(compression());
+
+// Server my assets and favicons
 app.use('/assets', require('express').static(path.join(__dirname, '../../client/public/assets/assets'), cacheOptions));
 app.use('/favicons', require('express').static(path.join(__dirname, '../server/images/favicons'), cacheOptions));
-
 
 // Middleware pour parser JSON
 app.use(express.json());
@@ -40,7 +67,6 @@ app.use(express.static('/www'));
 app.use(express.static('public'));
 app.use('/images', require('express').static(path.join(__dirname, '../images'), cacheOptions));
 app.use(express.static('dist/client'));
-
 
 app.use(errorHandler);
 

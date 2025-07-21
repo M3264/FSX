@@ -58,7 +58,6 @@ function Navbar() {
           <div className="md:hidden">
             <button
               onClick={() => {
-                console.log("Navbar clicked");
                 setIsMenuOpen(!isMenuOpen);
               }}
               className="text-gray-300 hover:text-white"
