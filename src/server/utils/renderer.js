@@ -3,7 +3,8 @@ const { renderToString } = require('react-dom/server');
 const { StaticRouter } = require('react-router-dom');
 const Getter = require('./resolver');
 const { getMetaData  } = require('./headers.html.js');
-const { createClient } = require('redis');
+// const { createClient } = require('redis');
+const  redis  = require('./redis.js')
 
 
 
@@ -67,8 +68,6 @@ async function getAssets() {
 
 async function SetCache(url, cachekey, fullHTML){
   try {
-     const redis = createClient(); 
-     await redis.connect();
     await redis.setEx(cachekey, 604800, fullHTML);
     console.log(`CACHE SET SUCCESFULLY FOR route : ${url}`)
   
@@ -79,8 +78,7 @@ async function SetCache(url, cachekey, fullHTML){
 
 const renderPage = async (url) => {
   try {
-    const redis = createClient(); // Default it's localhost:6379, so i don't need to add custom Settings like PG, It's so coooool.
-    await redis.connect();
+    
     const context = {};
     const cachekey = `SSR:${url}`
     const assets = await getAssets();

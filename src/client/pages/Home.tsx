@@ -3,26 +3,85 @@ import { ChevronDown, MessageSquare, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import OptimizedImage from '../components/OptimizedImage';
 
-// Liste de toutes les images à précharger
-const imagesToPreload = [
-  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2072",
-  "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&q=80&w=800",
-  "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
-  "https://files.catbox.moe/b8is2m.jpeg"
+// Images à précharger immédiatement
+const criticalImages = [
+  "/images/unsplash-photo-1451187580459-43490279c0fa.webp", // Hero background
+  "/images/unsplash-photo-1460925895917-afdab827c52f.webp", // Premier service
+  "/images/unsplash-photo-1504639725590-34d0984388bd.webp", // Deuxième service
 ];
 
+// Images à précharger après le chargement initial
+const secondaryImages = [
+  "/images/unsplash-photo-1552664730-d307ca884978.webp",
+  "/images/fcc-project.webp"
+];
+
+// Routes internes à précharger
+const internalRoutes = ['/contact', '/projects', '/services'];
+
 function Home() {
-  // Fonction de préchargement des images
   useEffect(() => {
-    const preloadImages = () => {
-      imagesToPreload.forEach(src => {
+    // 1. Préchargement immédiat et agressif des images critiques
+    const preloadCriticalImages = () => {
+      criticalImages.forEach(src => {
+        // Méthode 1: Link preload dans le head
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+        
+        // Méthode 2: Image object pour forcer le cache immédiatement
         const img = new Image();
         img.src = src;
       });
     };
-    
-    preloadImages();
+
+    // 2. Préchargement immédiat des images secondaires (pas de délai)
+    const preloadSecondaryImages = () => {
+      secondaryImages.forEach(src => {
+        const img = new Image();
+        img.src = src;
+      });
+    };
+
+    // 3. Préchargement des routes internes
+    const preloadInternalRoutes = () => {
+      setTimeout(() => {
+        internalRoutes.forEach(route => {
+          const link = document.createElement('link');
+          link.rel = 'prefetch';
+          link.href = route;
+          document.head.appendChild(link);
+        });
+      }, 100); // Délai réduit
+    };
+
+    // 4. Préchargement DNS pour les domaines externes
+    const preloadDNS = () => {
+      const dnsPreload = document.createElement('link');
+      dnsPreload.rel = 'dns-prefetch';
+      dnsPreload.href = '//images.unsplash.com';
+      document.head.appendChild(dnsPreload);
+    };
+
+    // Exécution immédiate de tous les préchargements
+    preloadCriticalImages();
+    preloadSecondaryImages();
+    preloadInternalRoutes();
+    preloadDNS();
+
+    // Nettoyage au démontage du composant
+    return () => {
+      // Retirer les liens de préchargement pour éviter l'accumulation
+      const preloadLinks = document.querySelectorAll('link[rel="preload"], link[rel="prefetch"]');
+      preloadLinks.forEach(link => {
+        if (link.getAttribute('href')?.includes('/images/') || 
+            internalRoutes.includes(link.getAttribute('href') || '')) {
+          link.remove();
+        }
+      });
+    };
   }, []);
 
   return (
@@ -31,10 +90,9 @@ function Home() {
       <section className="relative min-h-screen flex items-center justify-center px-4">
         <div className="absolute inset-0 -z-10">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-gray-900 to-gray-900"></div>
-          {/* Image d'arrière-plan avec style amélioré */}
           <div className="w-full h-full">
             <OptimizedImage
-              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2072"
+              src="/images/unsplash-photo-1451187580459-43490279c0fa.webp"
               alt="Background"
               className="w-full h-full object-cover opacity-10"
               priority={true}
@@ -80,17 +138,17 @@ function Home() {
               {
                 title: "Sites Web Modernes",
                 description: "Des sites web performants et responsifs",
-                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800"
+                image: "/images/unsplash-photo-1460925895917-afdab827c52f.webp"
               },
               {
                 title: "Solutions Digitales",
                 description: "Automatisation et outils sur mesure",
-                image: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?auto=format&fit=crop&q=80&w=800"
+                image: "/images/unsplash-photo-1504639725590-34d0984388bd.webp"
               },
               {
                 title: "Consultation technique",
                 description: "Expertise et accompagnement",
-                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
+                image: "/images/unsplash-photo-1552664730-d307ca884978.webp"
               }
             ].map((service, index) => (
               <div
@@ -101,7 +159,7 @@ function Home() {
                   src={service.image}
                   alt={service.title}
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  priority={index < 2}
+                  priority={index < 2} // Seules les 2 premières images sont prioritaires
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent flex flex-col justify-end p-6">
                   <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
@@ -127,7 +185,7 @@ function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="relative rounded-2xl overflow-hidden">
             <OptimizedImage
-              src="https://files.catbox.moe/b8is2m.jpeg"
+              src="/images/fcc-project.webp"
               alt="FCC"
               className="w-full h-full md:h-96 lg:h-[600px] object-cover"
               priority={false}

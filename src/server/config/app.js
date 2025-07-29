@@ -3,8 +3,7 @@ const errorHandler = require('../middleware/errorHandler');
 const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
-const { createClient } = require('redis');
-
+const redis = require('../utils/redis'); // Assure-toi que c'est bien un client connecté
 
 let cacheOptions = {
   maxAge: '2y',
@@ -13,17 +12,8 @@ let cacheOptions = {
 
 const app = express();
 
-async function startRedis(){
-
-   const redis = createClient(); // Default it's localhost:6379, so i don't need to add custom Settings like PG, It's so coooool.
-   await redis.connect()
-   console.log("REDIS CONNECTED SUCCESFULLY")
-   return redis;
-}
-
-startRedis();
+// Sécurité
 app.use(helmet());
-
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'"],
@@ -54,20 +44,53 @@ app.use(helmet.contentSecurityPolicy({
 
 app.use(compression());
 
-// Server my assets and favicons
-app.use('/assets', require('express').static(path.join(__dirname, '../../client/public/assets/assets'), cacheOptions));
-app.use('/favicons', require('express').static(path.join(__dirname, '../server/images/favicons'), cacheOptions));
+// Middleware Redis Cache
+async function redisImageCache(req, res, next) {
+  try {
+    const key = `IMG:${req.originalUrl}`;
+    const cached = await redis.get(key);
+    if (cached) {
+      console.log(`[CACHE-HIT] ${key}`);
+      res.setHeader('Content-Type', 'image/*');
+      return res.end(Buffer.from(cached, 'base64'));
+    }
+    
+    // capture response to cache
+    const originalSend = res.send.bind(res);
+    res.send = (body) => {
+      if (res.get('Content-Type')?.startsWith('image')) {
+        redis.set(key, body.toString('base64'), { EX: 60 * 60 * 24 }); // 1 jour
+        console.log(`[CACHE-SET] ${key}`);
+      }
+      return originalSend(body);
+    };
+    
+    next();
+  } catch (error) {
+    console.error('[REDIS-CACHE-ERROR]', error);
+    next(); // fail silently
+  }
+}
 
-// Middleware pour parser JSON
+// Appliquer le cache Redis avant de servir les images
+app.use('/images', redisImageCache);
+app.use('/favicons', redisImageCache);
+
+// Serve images after the middleware correctly set caches
+app.use('/assets', express.static(path.join(__dirname, '../../client/public/assets/assets'), cacheOptions));
+app.use('/favicons', express.static(path.join(__dirname, '../images/favicons'), cacheOptions));
+app.use('/images', express.static(path.join(__dirname, '../images'), cacheOptions));
+
+// Parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir les fichiers statiques
+// Autres fichiers statiques
 app.use(express.static('/www'));
 app.use(express.static('public'));
-app.use('/images', require('express').static(path.join(__dirname, '../images'), cacheOptions));
 app.use(express.static('dist/client'));
 
+// Gestion des erreurs
 app.use(errorHandler);
 
 module.exports = app;
