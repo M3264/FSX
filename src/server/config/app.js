@@ -3,7 +3,8 @@ const errorHandler = require('../middleware/errorHandler');
 const path = require('path');
 const compression = require('compression');
 const helmet = require('helmet');
-const redis = require('../utils/redis'); // Assure-toi que c'est bien un client connecté
+const redis = require('../utils/redis'); 
+
 
 let cacheOptions = {
   maxAge: '2y',

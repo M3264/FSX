@@ -4,7 +4,7 @@ const { StaticRouter } = require('react-router-dom');
 const Getter = require('./resolver');
 const { getMetaData  } = require('./headers.html.js');
 // const { createClient } = require('redis');
-const  redis  = require('./redis.js')
+const  redis  = require('./redis.js');
 
 
 
@@ -43,6 +43,7 @@ const pageMetaData = {
     url: 'https://www.famoustech.xyz/portfolio'
   }
 };
+
 
 
 const getPageMeta = (path) => {
@@ -101,7 +102,8 @@ const renderPage = async (url) => {
     );
 
     if (context.url) {
-      throw new Error(`Redirect to: ${context.url}`);
+      console.warn(`Request was Redirected to: ${context.url}`);
+      return; // I should write a new way to correctly resolve redirections. (I am tired...)
     }
 
     const pageMeta = getPageMeta(url);
@@ -109,6 +111,7 @@ const renderPage = async (url) => {
     <!DOCTYPE html>
       <html lang="fr-HT">
       <head>
+    <!-- <style src="${assets.stylesfile}></style> -->
         ${getMetaData(pageMeta, assets)}
       </head>
       <body>

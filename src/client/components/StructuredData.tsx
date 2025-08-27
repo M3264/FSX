@@ -10,6 +10,8 @@ interface StructuredDataProps {
  * Composant pour ajouter des données structurées Schema.org
  * Cela améliore le référencement et l'affichage dans les résultats Google
  */
+
+
 const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
   const structuredData = {
     '@context': 'https://schema.org',
@@ -29,6 +31,8 @@ const StructuredData: React.FC<StructuredDataProps> = ({ type, data }) => {
 /**
  * Données structurées pour l'organisation
  */
+
+
 export const OrganizationStructuredData: React.FC = () => {
   const orgData = {
     name: 'FAMOUS-TECH',
@@ -40,7 +44,7 @@ export const OrganizationStructuredData: React.FC = () => {
       streetAddress: 'Port-au-Prince',
       addressLocality: 'Port-au-Prince',
       addressRegion: 'Ouest',
-      postalCode: 'HT6110',
+      postalCode: 'HT30',
       addressCountry: 'HT'
     },
     sameAs: [
@@ -71,6 +75,7 @@ export const OrganizationStructuredData: React.FC = () => {
 /**
  * Données structurées pour la page d'accueil
  */
+
 export const WebsiteStructuredData: React.FC = () => {
   const websiteData = {
     name: 'FAMOUS-TECH - Solutions de développement web et mobile',
@@ -97,6 +102,7 @@ export const WebsiteStructuredData: React.FC = () => {
 /**
  * Données structurées pour une page
  */
+
 export const WebPageStructuredData: React.FC<{ 
   title: string; 
   description: string;

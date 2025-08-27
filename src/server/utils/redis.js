@@ -8,7 +8,7 @@ const redis = createClient({
 });
 
 redis.on('error', (err) => {
-    console.error(`❌ REDIS DATABASE ERROR: ${err}`);
+    console.error(`REDIS DATABASE ERROR: ${err}`);
 });
 
 redis.on('connect', () => {

@@ -95,10 +95,8 @@ const getMetaData = (pageMeta, assets) => {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     <link rel="manifest" href="/favicons/site.webmanifest" />
     <link rel="canonical" href="${pageMeta.url}" />
-    <link rel="stylesheet" href="${assets.stylesfile}">    
+    <!-- Styles have to be added dynamically -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
-
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">${JSON.stringify(structuredData)}</script>
     <script type="application/ld+json">${JSON.stringify(organizationData)}</script>
