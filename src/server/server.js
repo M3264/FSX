@@ -1,4 +1,5 @@
 require('esbuild-register/dist/node').register();
+require('ignore-styles').default(['.css', '.scss', '.sass']);
 require('dotenv').config();
 // First BIIIIG Project i made at without vibe coding
 // But i was in obligation to fix conflicts using chatGPT because it's the first time i use Nodejs simple and React with Typescript in a single project.

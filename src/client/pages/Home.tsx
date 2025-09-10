@@ -13,7 +13,7 @@ const criticalImages = [
 // Images à précharger après le chargement initial
 const secondaryImages = [
   "/images/unsplash-photo-1552664730-d307ca884978.webp",
-  "/images/fcc-project.webp"
+  "/images/fcc-project.webp",
 ];
 
 // Routes internes à précharger
@@ -23,14 +23,14 @@ function Home() {
   useEffect(() => {
     // 1. Préchargement immédiat et agressif des images critiques
     const preloadCriticalImages = () => {
-      criticalImages.forEach(src => {
+      criticalImages.forEach((src) => {
         // Méthode 1: Link preload dans le head
         const link = document.createElement('link');
         link.rel = 'preload';
         link.as = 'image';
         link.href = src;
         document.head.appendChild(link);
-        
+
         // Méthode 2: Image object pour forcer le cache immédiatement
         const img = new Image();
         img.src = src;
@@ -39,7 +39,7 @@ function Home() {
 
     // 2. Préchargement immédiat des images secondaires (pas de délai)
     const preloadSecondaryImages = () => {
-      secondaryImages.forEach(src => {
+      secondaryImages.forEach((src) => {
         const img = new Image();
         img.src = src;
       });
@@ -48,7 +48,7 @@ function Home() {
     // 3. Préchargement des routes internes
     const preloadInternalRoutes = () => {
       setTimeout(() => {
-        internalRoutes.forEach(route => {
+        internalRoutes.forEach((route) => {
           const link = document.createElement('link');
           link.rel = 'prefetch';
           link.href = route;
@@ -74,10 +74,15 @@ function Home() {
     // Nettoyage au démontage du composant
     return () => {
       // Retirer les liens de préchargement pour éviter l'accumulation
-      const preloadLinks = document.querySelectorAll('link[rel="preload"], link[rel="prefetch"]');
-      preloadLinks.forEach(link => {
-        if (link.getAttribute('href')?.includes('/images/') || 
-            internalRoutes.includes(link.getAttribute('href') || '')) {
+      const preloadLinks = document.querySelectorAll(
+        'link[rel="preload"], link[rel="prefetch"]'
+      );
+
+      preloadLinks.forEach((link) => {
+        if (
+          link.getAttribute('href')?.includes('/images/') ||
+          internalRoutes.includes(link.getAttribute('href') || '')
+        ) {
           link.remove();
         }
       });
@@ -99,14 +104,16 @@ function Home() {
             />
           </div>
         </div>
-        
+
         <div className="text-center">
           <h1 className="text-4xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-pink-600 text-transparent bg-clip-text">
             Ou imajine, nou kreye
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-gray-300">
-            Développeur web passionné, je transforme vos idées en réalités digitales innovantes
+            Développeur web passionné, je transforme vos idées en réalités
+            digitales innovantes
           </p>
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/contact"
@@ -114,8 +121,12 @@ function Home() {
             >
               <MessageSquare size={20} />
               Demande un devis
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+              <ArrowRight
+                size={16}
+                className="transition-transform group-hover:translate-x-1"
+              />
             </Link>
+
             <Link
               to="/projects"
               className="border border-purple-600 text-white px-8 py-3 rounded-lg hover:bg-purple-600/20 transition-colors inline-flex items-center justify-center gap-2"
@@ -133,23 +144,27 @@ function Home() {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
             Services d'excellence
           </h2>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
               {
                 title: "Sites Web Modernes",
                 description: "Des sites web performants et responsifs",
-                image: "/images/unsplash-photo-1460925895917-afdab827c52f.webp"
+                image:
+                  "/images/unsplash-photo-1460925895917-afdab827c52f.webp",
               },
               {
                 title: "Solutions Digitales",
                 description: "Automatisation et outils sur mesure",
-                image: "/images/unsplash-photo-1504639725590-34d0984388bd.webp"
+                image:
+                  "/images/unsplash-photo-1504639725590-34d0984388bd.webp",
               },
               {
                 title: "Consultation technique",
                 description: "Expertise et accompagnement",
-                image: "/images/unsplash-photo-1552664730-d307ca884978.webp"
-              }
+                image:
+                  "/images/unsplash-photo-1552664730-d307ca884978.webp",
+              },
             ].map((service, index) => (
               <div
                 key={index}
@@ -162,12 +177,15 @@ function Home() {
                   priority={index < 2} // Seules les 2 premières images sont prioritaires
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent flex flex-col justify-end p-6">
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
+                  <h3 className="text-xl font-semibold mb-2">
+                    {service.title}
+                  </h3>
                   <p className="text-gray-300">{service.description}</p>
                 </div>
               </div>
             ))}
           </div>
+
           <div className="text-center mt-12">
             <Link
               to="/services"
@@ -194,7 +212,8 @@ function Home() {
               <div className="p-8 md:p-16 max-w-2xl">
                 <h3 className="text-2xl md:text-4xl font-bold mb-4">FCC</h3>
                 <p className="text-gray-300 text-lg mb-8">
-                  Un site vitrine attractif, realiste et optimise afin de convertir les visiteurs en acheteurs.
+                  Un site vitrine attractif, réaliste et optimisé afin de
+                  convertir les visiteurs en acheteurs.
                 </p>
                 <Link
                   to="/projects"
