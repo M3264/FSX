@@ -52,8 +52,7 @@ async function redisImageCache(req, res, next) {
     const cached = await redis.get(key);
     if (cached) {
       console.log(`[CACHE-HIT] ${key}`);
-      res.setHeader('Content-Type', 'image/*');
-      return res.end(Buffer.from(cached, 'base64'));
+    return res.send(`data:image/png;base64, ${cached}`)
     }
     
     // capture response to cache

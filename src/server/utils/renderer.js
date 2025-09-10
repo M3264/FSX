@@ -121,13 +121,13 @@ const renderPage = async (url) => {
       </html>
       `
      
-      await SetCache(url, cachekey, fullHTML);
+      await SetCache(url, cachekey, fullHTML), {EX: 60 * 60 * 24}; // Now it's 1 day for each SSR page
       
       return fullHTML;
       
 
   } catch (error) {
-    console.error('Erreur lors du rendu de la page:', error);
+    console.error('Error rendering the page', error);
 
     return `
       <!DOCTYPE html>

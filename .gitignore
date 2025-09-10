@@ -7,3 +7,6 @@ Dockerfile
 docker-compose.yaml
 .*
 ancien.*
+src/client/public/assets/.vite/*
+src/client/public/*
+*.map

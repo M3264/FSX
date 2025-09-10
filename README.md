@@ -4,9 +4,9 @@
 
 A lightweight Server-Side Rendering (SSR) framework for React applications, designed for fast Google and Bing indexing.
 
-## 🚀 What is FSX?
+>  **What is FSX ?**
 
-FSX is a development project by **Famous-Tech**, a 14-year-old Haitian developer, created to practice web development and reduce dependence on AI coding assistants. It's like Next.js but lighter, with a focus on SEO optimization.
+FSX is a development project by **Famous-Tech**, a 14-year-old Haitian developer, created to practice web development and reduce  dependence  on AI coding assistants. It's like Next.js but lighter, with a focus on SEO optimization.
 
 ## ✨ Features
 
@@ -18,7 +18,7 @@ FSX is a development project by **Famous-Tech**, a 14-year-old Haitian developer
 - **TypeScript Support** with Vite build system
 - **Docker Ready** for easy deployment
 
-## 🏗️ Project Structure
+##  Project Structure
 
 ```
 FSX/
@@ -26,9 +26,9 @@ FSX/
 │   ├── server/           # Express.js SSR server
 │   │   ├── config/       # App configuration
 │   │   ├── routes/       # SSR routes and API endpoints
-│   │   ├── middleware/   # Custom middleware
+│   │   ├── middleware/   # Custom middleware (U can do your own)
 │   │   └── utils/        # Server utilities (renderer, redis, etc.)
-│   └── client/           # React application
+│   └── client/           # React application (This is built on TOP of My PORTFOLIO LOL)
 │       ├── components/   # React components
 │       ├── pages/        # Page components
 │       ├── hooks/        # Custom React hooks
@@ -38,16 +38,16 @@ FSX/
 │   └── structure.py      # Project structure generator
 └── docker/              # Docker configuration
 ```
+<p style="color: gray;font-size: 10px">by the way, the Front End was vibe coded...</p>
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 19, TypeScript, Tailwind CSS, Vite
+- **Frontend**: React 19, TypeScript (JavaScript is natively supported), Tailwind CSS, Vite
 - **Backend**: Express.js, Node.js
 - **Caching**: Redis
-- **Security**: Helmet.js
 - **Build**: Vite
 - **Containerization**: Docker
-- **Scripts**: Python 3.8+
+- **Scripts**: Python 3.8+ (For features FSX doesn't have yet like IMAGE OPTIMIZATION)
 
 ## 🚀 Quick Start
 
@@ -56,7 +56,7 @@ FSX/
 - Node.js 18+
 - pnpm (recommended)
 - Redis server
-- Python 3.8+ (for image optimization scripts)
+- Python 3.8+ (for image optimization scripts, i will create them in JS as soon as possible)
 
 ### Installation
 
@@ -141,7 +141,10 @@ This is a **development version** of FSX, not a production NPM package. It's des
 - Learning and practicing web development
 - Understanding SSR concepts
 - Building SEO-optimized React applications
-- Reducing dependence on AI coding tools
+- Reducing **MY** dependence on AI coding tools
+
+It's not completed yet.
+So if u wanna contribute, [check out TODO.MD](TODO.MD) 
 
 ## 👨‍💻 Author
 
