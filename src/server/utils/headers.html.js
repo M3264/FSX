@@ -1,6 +1,6 @@
 
 
-const getMetaData = (pageMeta, assets) => {
+const getMetaData = (pageMeta) => {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -96,7 +96,6 @@ const getMetaData = (pageMeta, assets) => {
     <link rel="manifest" href="/favicons/site.webmanifest" />
     <link rel="canonical" href="${pageMeta.url}" />
     <!-- Styles have to be added dynamically-->
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">${JSON.stringify(structuredData)}</script>
     <script type="application/ld+json">${JSON.stringify(organizationData)}</script>

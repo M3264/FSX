@@ -1,49 +1,75 @@
-const { readFile } = require('fs/promises');
-const path  = require('path')
+const { readFile } = require("fs/promises");
+const path = require("path");
 
+class Resolver {
+  constructor(pageKey) {
+    this.assetsBase = path.resolve("./dist/client/");
+    this.manifestPath = path.resolve(this.assetsBase, ".vite/manifest.json");
+    this.pageKey = pageKey;
+  }
 
-async function GetManifest(){
-    const chemin = path.resolve('./src/client/public/assets/.vite/manifest.json');
-
+  async _readManifest() {
     try {
+      const content = await readFile(this.manifestPath, "utf-8");
+      return JSON.parse(content);
+    } catch (error) {
+      console.error("Error reading manifest:", error);
+      return null;
+    }
+  }
 
-     content = await readFile(chemin, 'utf-8');
-     const manifest = JSON.parse(content)
-     const result = manifest['../main.tsx']
+  async getBundle() {
+    const manifest = await this._readManifest();
+    if (!manifest) return null;
 
-     if(result && result.file){
-        const scriptFile = result.file.toString()
-        // console.log('JS FILE is : ', scriptFile)
+    const result = manifest["../main.tsx"];
+    if (result && result.file) {
+      // Return absolute path to JS bundle
+      return path.resolve(this.assetsBase, result.file);
+    }
+    return null;
+  }
 
-        return scriptFile;
-     }
+  async getCSS() {
+    const manifest = await this._readManifest();
+    if (!manifest) return null;
 
+    const result = manifest["../main.tsx"];
+    if (result && result.css && result.css.length > 0) {
+      // Return absolute path to CSS file
+      return path.resolve(this.assetsBase, result.css[0]);
+    }
+    return null;
+  }
 
-    }catch (error){
-        console.error(error)
+  async getChunksPerPage() {
+    const manifest = await this._readManifest();
+    let jsFiles = new Set();
+    const pageKey = this.pageKey;
+    if (!pageKey) {
+      throw new Error("PageKey is required.");
     }
 
-}
-
-
-async function GetCSS(){
-    const chemin = path.resolve('./src/client/public/assets/.vite/manifest.json');
-    try {
-        content = await readFile(chemin, 'utf-8');
-        const manifest = JSON.parse(content)
-        const result = manifest['../main.tsx']
-        if(result && result.css && result.css.length > 0){
-            const cssFile = result.css[0].toString()
-          //  console.log('CSS FILE is : ', cssFile)
-            return cssFile;
-        }
-    }catch (error){
-        console.error(error)
+    if (!manifest) {
+      throw new Error("Manifest doesn't exist");
     }
+    if (manifest[pageKey]) {
+      const pageFile = manifest[pageKey].file;
+      console.log(`[RENDERER] Found ${pageFile} for the query ${pageKey}`);
+      jsFiles.add(manifest[pageKey].file);
+    }
+    if (
+      manifest["../entry-client.tsx"] &&
+      manifest["../entry-client.tsx"].file
+    ) {
+      jsFiles.add(manifest["../entry-client.tsx"].file),
+        jsFiles.add(...manifest["../entry-client.tsx"].imports);
+    }
+    if (manifest[pageKey].imports) {
+      jsFiles = new Set([...jsFiles, ...manifest[pageKey].imports]);
+    }
+    return jsFiles;
+  }
 }
 
-
-module.exports = {
-    GetManifest,
-    GetCSS
-};
+module.exports = Resolver;

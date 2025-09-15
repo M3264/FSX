@@ -2,11 +2,11 @@ import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Home from './pages/Home';
-import About from './pages/About';
-import Services from './pages/Services';
-import Projects from './pages/Projects';
-import Contact from './pages/Contact';
+const Home = React.lazy(() => import("./pages/Home"));
+const About = React.lazy(() => import("./pages/About"));
+const Services = React.lazy(()=> import("./pages/Services"))
+const Projects = React.lazy(()=> import("./pages/Projects"))
+const Contact = React.lazy(()=> import("./pages/Contact"))
 import { OrganizationStructuredData, WebsiteStructuredData } from './components/StructuredData';
 
 // Composant principal de l'App 

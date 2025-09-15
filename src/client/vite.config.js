@@ -5,36 +5,31 @@ import path from "path";
 export default defineConfig({
   root: "src",
   build: {
-    outDir: "../public/assets",
+    outDir: "../../../dist/client",
     emptyOutDir: true,
     sourcemap: true,
-    manifest: {
-      fileName: ".vite/manifest.json",
-    },
+    manifest: true,
+    cssCodeSplit: true, 
     rollupOptions: {
       input: {
-        main: "./main.tsx",
+        main: path.resolve(__dirname, "entry-client.tsx")
       },
       output: {
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name.endsWith(".css")) {
-            return "assets/[name]-[hash][extname]";
-          }
-          return "assets/[name]-[hash][extname]";
-        },
-        chunkFileNames: "assets/[name]-[hash].js",
         entryFileNames: "assets/[name]-[hash].js",
-      },
-    },
-    cssCodeSplit: true,
+        chunkFileNames: "assets/[name]-[hash].js",
+        assetFileNames: "assets/[name]-[hash][extname]",
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            return "vendor";
+          }
+        }
+      }
+    }
   },
   plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(process.cwd(), "src"),
     },
-  },
-  css: {
-    postcss: "./postcss.config.js",
   },
 });
