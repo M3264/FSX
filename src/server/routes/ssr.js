@@ -24,10 +24,6 @@ router.get("{/*splat}", async (req, res) => {
       return res.status(200).sendFile(robotsFile);
     } else if (req.url.includes("sitemap.xml")) {
       return res.status(200).sendFile(sitemapFile);
-    } else if (req.url.endsWith(".css")) {
-      // Custom rule for CSS files
-      const cssPath = await assets.getCSS();
-      return res.type("text/css").sendFile(path.resolve(cssPath));
     }
 
     // Default SSR rendering

@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { renderToString } from "react-dom/server";
-import { useLocation, Link, Routes, Route, StaticRouter } from "react-router-dom";
+import React, { useState, Suspense } from "react";
+import { useLocation, Link, Routes, Route } from "react-router-dom";
 import { X, Menu, Mail, Phone, Clock } from "lucide-react";
 import { Helmet } from "react-helmet";
 function Navbar() {
@@ -184,20 +183,16 @@ const WebPageStructuredData = ({ title, description, path, image, datePublished,
 };
 const Home = React.lazy(() => import("./assets/Home-2S34g0HV.mjs"));
 const About = React.lazy(() => import("./assets/About-BMiVLYCA.mjs"));
-const Services = React.lazy(() => import("./assets/Services-BJ6T8FVt.mjs"));
-const Projects = React.lazy(() => import("./assets/Projects-DqE_Fzd_.mjs"));
+const Services = React.lazy(() => import("./assets/Services-DzaGSaV-.mjs"));
+const Projects = React.lazy(() => import("./assets/Projects-17z8dMhr.mjs"));
 const Contact = React.lazy(() => import("./assets/Contact-Bt9LsM4z.mjs"));
 function App() {
-  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white" }, /* @__PURE__ */ React.createElement(OrganizationStructuredData, null), /* @__PURE__ */ React.createElement(WebsiteStructuredData, null), /* @__PURE__ */ React.createElement(Navbar, null), /* @__PURE__ */ React.createElement(Routes, null, /* @__PURE__ */ React.createElement(Route, { path: "/", element: /* @__PURE__ */ React.createElement(Home, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/about", element: /* @__PURE__ */ React.createElement(About, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/services", element: /* @__PURE__ */ React.createElement(Services, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/projects", element: /* @__PURE__ */ React.createElement(Projects, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/contact", element: /* @__PURE__ */ React.createElement(Contact, null) })), /* @__PURE__ */ React.createElement(Footer, null));
+  return /* @__PURE__ */ React.createElement("div", { className: "min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white" }, /* @__PURE__ */ React.createElement(OrganizationStructuredData, null), /* @__PURE__ */ React.createElement(WebsiteStructuredData, null), /* @__PURE__ */ React.createElement(Navbar, null), /* @__PURE__ */ React.createElement(Suspense, { fallback: /* @__PURE__ */ React.createElement("div", null, "Loading...") }, /* @__PURE__ */ React.createElement(Routes, null, /* @__PURE__ */ React.createElement(Route, { path: "/", element: /* @__PURE__ */ React.createElement(Home, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/about", element: /* @__PURE__ */ React.createElement(About, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/services", element: /* @__PURE__ */ React.createElement(Services, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/projects", element: /* @__PURE__ */ React.createElement(Projects, null) }), /* @__PURE__ */ React.createElement(Route, { path: "/contact", element: /* @__PURE__ */ React.createElement(Contact, null) }))), /* @__PURE__ */ React.createElement(Footer, null));
 }
-function render(url) {
-  const context = {};
-  const html = renderToString(
-    /* @__PURE__ */ React.createElement(StaticRouter, { location: url, context }, /* @__PURE__ */ React.createElement(App, null))
-  );
-  return { html, context };
+function EntryServer({ url }) {
+  return /* @__PURE__ */ React.createElement(App, null);
 }
 export {
   WebPageStructuredData as W,
-  render
+  EntryServer as default
 };

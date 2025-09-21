@@ -1,17 +1,12 @@
 const React = require("react");
 const { renderToString } = require("react-dom/server");
 const { StaticRouter } = require("react-router-dom");
-import { renderToPipeableStream } from "react-dom/server";
+const { renderToPipeableStream } = require("react-dom/server");
 const Resolver = require("./resolver");
 const { getMetaData } = require("./headers.html.js");
-// const { createClient } = require('redis');
 const redis = require("./redis.js");
 
-// Import du composant App
-const App = require("../../client/App").default;
-
-// Configuration des meta données par page
-
+// --- Meta Data ---
 const pageMetaData = {
   "/": {
     title: "FAMOUS-TECH - Solutions Digitales Innovantes en Haïti",
@@ -50,13 +45,14 @@ const getPageMeta = (path) => {
   return pageMetaData[cleanPath] || pageMetaData["/"];
 };
 
+// --- Redis cache helper ---
 async function SetCache(url, cachekey, fullHTML) {
   try {
-    await redis.setEx(cachekey, 604800, fullHTML);
-    console.log(`CACHE SET SUCCESFULLY FOR route : ${url}`);
+    await redis.setEx(cachekey, 60 * 60 * 24, fullHTML); // 1 jour
+    console.log(`CACHE SET SUCCESSFULLY for route : ${url}`);
   } catch (error) {
     console.warn(
-      `WARNING, Cache wasn't set correctly, we got this error : ${error}`
+      `WARNING, Cache wasn't set correctly, got error : ${error}`
     );
   }
 }
@@ -65,6 +61,24 @@ class Renderer {
   constructor(url, res) {
     this.url = url;
     this.res = res;
+  }
+
+
+  async _getPageKey(url){
+    const keys = {
+      "/": "../pages/Home.tsx",
+      "/contact": "../pages/Contact.tsx",
+      "/projects": "../pages/Projects.tsx",
+      "/services": "../pages/Services.tsx",
+      "/about": "../pages/About.tsx"
+    }
+    console.log(url)
+    return keys[url] || null;
+  }
+  async _loadApp() {
+    
+    const mod = await import("../../../dist/server/entry-server.mjs"); // This might possibly change depending on your project structure
+    return mod.default; 
   }
 
   async renderToString(url) {
@@ -76,52 +90,46 @@ class Renderer {
       const jsFile = assets.getBundle();
       const cachedHTML = await redis.get(cachekey);
 
-      let appHTML = "";
-
       if (cachedHTML) {
-        appHTML = cachedHTML;
-
         console.log(`Used cache for ${url}`);
-        return appHTML;
+        return cachedHTML;
       }
 
-      appHTML = renderToString(
+      const EntryServer = await this._loadApp();
+
+      const appHTML = renderToString(
         React.createElement(
           StaticRouter,
-          {
-            location: url,
-            context,
-          },
-          React.createElement(App)
+          { location: url, context },
+          React.createElement(EntryServer, { url })
         )
       );
 
       if (context.url) {
-        console.warn(`Request was Redirected to: ${context.url}`);
+        console.warn(`Request was redirected to: ${context.url}`);
         return;
       }
 
       const pageMeta = getPageMeta(url);
-      var fullHTML = `
+      const fullHTML = `
       <!DOCTYPE html>
-        <html lang="fr-HT">
-        <head>
-      <!-- <style src="${cssFile}></style> -->
-          ${getMetaData(pageMeta)}
-        </head>
-        <body>
-          <div id="root">${appHTML}</div>
-          <script src="${jsFile}" defer></script>
-        </body>
-        </html>
-        `;
+      <html lang="fr-HT">
+      <head>
+        <link rel="stylesheet" href="${cssFile}">
+        ${getMetaData(pageMeta)}
+      </head>
+      <body>
+        <div id="root">${appHTML}</div>
+        <script src="${jsFile}" defer></script>
+      </body>
+      </html>
+      `;
 
-      await SetCache(url, cachekey, fullHTML), { EX: 60 * 60 * 24 }; // Now it's 1 day for each SSR page
+      await SetCache(url, cachekey, fullHTML);
 
       return fullHTML;
     } catch (error) {
       console.error("Error rendering the page", error);
-
       return `
         <!DOCTYPE html>
         <html lang="fr">
@@ -144,40 +152,62 @@ class Renderer {
   async renderToStream(url, res) {
     try {
       const context = {};
+      let pageKey = await this._getPageKey(url)
       const assets = new Resolver();
       const pageMeta = getPageMeta(url);
       const cssFile = await assets.getCSS();
-      const jsFile = await assets.getBundle();
+      const jsFiles = await assets.getChunksPerPage(pageKey);
+      
+      if (!jsFiles) {
+        console.error(`No JS files found for page key: ${pageKey}`);
+        return res.status(404).send('Page not found');
+      }
+      
+      const scriptFiles = [...jsFiles].map(f => `<script type="module" src="/dist/${f}" defer></script>`).join("\n")
+
+      const EntryServer = await this._loadApp();
+
       const { pipe } = renderToPipeableStream(
         React.createElement(
           StaticRouter,
           { location: url, context },
-          React.createElement(App)
+          React.createElement(EntryServer, { url })
         ),
         {
           onShellReady() {
+            if (res.writableEnded) return;
             res.setHeader("content-type", "text/html; charset=utf-8");
             res.write(`<!DOCTYPE html>
               <html lang="fr-HT">
               <head>
-                <link rel="stylesheet" href="${cssFile}" />
+                <link rel="stylesheet" href="/dist/${cssFile}" />
                 ${getMetaData(pageMeta)}
               </head>
               <body>
                 <div id="root">`);
-
             pipe(res);
+          },
+          onAllReady() {
+            if (res.writableEnded) return;
             res.write(`</div>
-              <script src="${jsFile}" defer></script>
+              ${scriptFiles}
               </body>
               </html>`);
-
             res.end();
           },
+          onError(error) {
+            console.error('Streaming error:', error);
+            if (!res.headersSent) {
+              res.status(500).send('Internal Server Error');
+            }
+          }
         }
       );
     } catch (error) {
       console.error(`ERROR WHILE STREAMING THE PAGE : ${error}`);
+      if (!res.headersSent) {
+        res.status(500).send('Internal Server Error');
+      }
     }
   }
 }

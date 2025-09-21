@@ -45,13 +45,13 @@ FSX is a development project that implements Server-Side Rendering (SSR) for Rea
    Browser Request → Express Server → Check Redis Cache
    ↓
    Cache Hit: Return cached HTML
-   Cache Miss: Render React App → Generate HTML → Cache → Return HTML
+   Cache Miss: Stream the React App to the client (A close to < 100ms step)→  Return HTML → Cache 
    ```
 
 2. **Rendering Process:**
    - Express server receives request
    - Checks Redis cache for existing HTML
-   - If not cached, renders React app with `renderToString`
+   - If not cached, renders React app with `renderToPipeableStream`
    - Generates complete HTML with meta tags
    - Caches the result in Redis
    - Returns HTML to browser
@@ -107,8 +107,7 @@ FSX is a development project that implements Server-Side Rendering (SSR) for Rea
 1. Start Redis server
 2. Run `pnpm run dev`
 3. Access application at `http://localhost:3000`
-4. Hot reload for client changes
-5. Server restart for server changes
+4. Server restart for server changes
 
 ### Building for Production
 1. Run `pnpm run build:client` to build React app
@@ -157,10 +156,10 @@ const pageMetaData = {
 - Error handling middleware
 
 ### Client Side
-- Code splitting with React Router
+- Code splitting with React Lazy and Vite SSR
 - Lazy loading of components
 - Image optimization with WebP
-- Performance monitoring
+- Performance monitoring (In next commits)
 
 ## Docker Support
 

@@ -4,6 +4,7 @@ import path from "path";
 
 export default defineConfig({
   root: "src",
+  plugins: [react()],
   build: {
     outDir: "../../../dist/client",
     emptyOutDir: true,
@@ -26,7 +27,6 @@ export default defineConfig({
       }
     }
   },
-  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(process.cwd(), "src"),

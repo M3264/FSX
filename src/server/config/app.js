@@ -13,6 +13,22 @@ let cacheOptions = {
 
 const app = express();
 
+function setStaticHeaders(res, filePath) {
+  try {
+    if (filePath.endsWith('.css')) {
+      res.setHeader('Content-Type', 'text/css; charset=utf-8');
+    } else if (filePath.endsWith('.js') || filePath.endsWith('.mjs')) {
+      res.setHeader('Content-Type', 'application/javascript; charset=utf-8');
+    } else if (filePath.endsWith('.svg')) {
+      res.setHeader('Content-Type', 'image/svg+xml');
+    } else if (filePath.endsWith('.json')) {
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    }
+  } catch (_) {
+    // no-op
+  }
+}
+
 // Sécurité
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
@@ -76,8 +92,8 @@ async function redisImageCache(req, res, next) {
 app.use('/images', redisImageCache);
 app.use('/favicons', redisImageCache);
 
-// Serve images after the middleware correctly set caches
-app.use('/assets', express.static(path.join(__dirname, '../../client/public/assets/assets'), cacheOptions));
+// Serve built assets (JS/CSS) and images after the middleware correctly set caches
+app.use('/assets', express.static(path.join(__dirname, '../../../dist/client/assets'), { ...cacheOptions, setHeaders: setStaticHeaders }));
 app.use('/favicons', express.static(path.join(__dirname, '../images/favicons'), cacheOptions));
 app.use('/images', express.static(path.join(__dirname, '../images'), cacheOptions));
 
@@ -88,7 +104,7 @@ app.use(express.urlencoded({ extended: true }));
 // Autres fichiers statiques
 app.use(express.static('/www'));
 app.use(express.static('public'));
-app.use(express.static('dist/client'));
+app.use('/dist', express.static(path.join(__dirname, '../../../dist/client'), { ...cacheOptions, setHeaders: setStaticHeaders }));
 
 // Gestion des erreurs
 app.use(errorHandler);

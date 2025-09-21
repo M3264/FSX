@@ -11,3 +11,5 @@ src/client/public/assets/.vite/*
 src/client/public/*
 *.map
 test.js
+dist/
+ancien.server.js

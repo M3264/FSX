@@ -25,7 +25,7 @@ function Projects() {
       description: "Plateforme e-commerce spécialisée dans la vente de produits numériques et recharges de jeux en ligne en Haïti. Interface utilisateur intuitive et systeme de gestion des visites.",
       image: "https://files.catbox.moe/6jd5fr.jpeg",
       tags: ["React", "TailwindCSS", "Node.js", "MongoDB"],
-      link: "https://cas.famoustech.xyz/"
+      link: "https://casdigital.xyz/"
     }
   ];
 

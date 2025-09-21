@@ -1,11 +1,12 @@
 const { readFile } = require("fs/promises");
 const path = require("path");
+const { parser } = require("vite-manifest-parser")
 
 class Resolver {
-  constructor(pageKey) {
+  constructor() {
     this.assetsBase = path.resolve("./dist/client/");
     this.manifestPath = path.resolve(this.assetsBase, ".vite/manifest.json");
-    this.pageKey = pageKey;
+    
   }
 
   async _readManifest() {
@@ -24,8 +25,8 @@ class Resolver {
 
     const result = manifest["../main.tsx"];
     if (result && result.file) {
-      // Return absolute path to JS bundle
-      return path.resolve(this.assetsBase, result.file);
+      // Return manifest file path (e.g., This could be a main-xxx file)
+      return result.file;
     }
     return null;
   }
@@ -34,39 +35,44 @@ class Resolver {
     const manifest = await this._readManifest();
     if (!manifest) return null;
 
-    const result = manifest["../main.tsx"];
-    if (result && result.css && result.css.length > 0) {
-      // Return absolute path to CSS file
-      return path.resolve(this.assetsBase, result.css[0]);
-    }
+    const result = manifest["../entry-client.tsx"];
+    if (result && result.css && result.css[0]) {
+      return result.css[0];
+    } 
     return null;
   }
 
-  async getChunksPerPage() {
+  async getChunksPerPage(pageKey) {
     const manifest = await this._readManifest();
+    // if you want to debug this functiom, try logging it to see if u get the correct pageKey as it's used in the func, if it's not the problem try logging next steps or look for any error 
     let jsFiles = new Set();
-    const pageKey = this.pageKey;
-    if (!pageKey) {
-      throw new Error("PageKey is required.");
-    }
 
     if (!manifest) {
       throw new Error("Manifest doesn't exist");
     }
-    if (manifest[pageKey]) {
+    // Add the page's own file
+    if (manifest[pageKey] && manifest[pageKey].file) {
       const pageFile = manifest[pageKey].file;
-      console.log(`[RENDERER] Found ${pageFile} for the query ${pageKey}`);
-      jsFiles.add(manifest[pageKey].file);
+    //  console.log(`[RESOLVER] Found ${pageFile} for the query ${pageKey}`);
+      jsFiles.add(pageFile);
     }
-    if (
-      manifest["../entry-client.tsx"] &&
-      manifest["../entry-client.tsx"].file
-    ) {
-      jsFiles.add(manifest["../entry-client.tsx"].file),
-        jsFiles.add(...manifest["../entry-client.tsx"].imports);
+    // Add tge entry-client and its resolved imports
+    const entry = manifest["../entry-client.tsx"];
+    if (entry && entry.file) {
+      jsFiles.add(entry.file);
+      if (Array.isArray(entry.imports)) {
+        for (const importId of entry.imports) {
+          const resolved = manifest[importId]?.file;
+          if (resolved) jsFiles.add(resolved);
+        }
+      }
     }
-    if (manifest[pageKey].imports) {
-      jsFiles = new Set([...jsFiles, ...manifest[pageKey].imports]);
+    // Add page dynamic imports
+    if (manifest[pageKey] && Array.isArray(manifest[pageKey].imports)) {
+      for (const importId of manifest[pageKey].imports) {
+        const resolved = manifest[importId]?.file;
+        if (resolved) jsFiles.add(resolved);
+      }
     }
     return jsFiles;
   }
