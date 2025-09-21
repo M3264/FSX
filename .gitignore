@@ -11,3 +11,4 @@ src/client/public/*
 test.js
 dist/
 ancien.server.js
+__scripts__/images.py
