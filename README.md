@@ -38,7 +38,7 @@ FSX/
 │   └── structure.py      # Project structure generator
 └── docker/              # Docker configuration
 ```
-<p style="color: gray;font-size: 10px">by the way, the Front End was vibe coded...</p>
+<p style="color: gray;font-size: 10px">by the way, the Front End was vibe coded... (PS : I am a backend developer)</p>
 
 ## 🛠️ Tech Stack
 
@@ -144,7 +144,7 @@ This is a **development version** of FSX, not a production NPM package. It's des
 - Reducing **MY** dependence on AI coding tools
 
 It's not completed yet.
-So if u wanna contribute, [check out TODO.MD](TODO.MD) 
+So if u wanna contribute, [check out TODO.MD](TODO.md) 
 
 ## 👨‍💻 Author
 

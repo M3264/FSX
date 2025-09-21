@@ -3,6 +3,7 @@
 ## Project Overview
 
 FSX is a development project that implements Server-Side Rendering (SSR) for React applications using Express.js. The main goal is to create a lightweight alternative to Next.js with a focus on SEO optimization.
+Soon be ready to see more features and especially FSX-COMPILER and React-FSX (The FRAMEWORK)
 
 ## Architecture
 
@@ -32,13 +33,13 @@ FSX is a development project that implements Server-Side Rendering (SSR) for Rea
 - `context/` - React context providers
 
 **Key Features:**
-- React 19 with TypeScript
+- React 19 with TypeScript/JavaScript
 - React Router for client-side routing
 - Tailwind CSS for styling
 - Schema.org structured data
 - Performance monitoring hooks
 
-## How SSR Works
+## How FSX SSR algoriithm Works ?
 
 1. **Request Flow:**
    ```
@@ -51,7 +52,7 @@ FSX is a development project that implements Server-Side Rendering (SSR) for Rea
 2. **Rendering Process:**
    - Express server receives request
    - Checks Redis cache for existing HTML
-   - If not cached, renders React app with `renderToPipeableStream`
+   - If not cached, renders React app with `renderToPipeableStream` (Stream means all data will be sent **on-the-fly** to the client, that will improve TimeToFirstByte)
    - Generates complete HTML with meta tags
    - Caches the result in Redis
    - Returns HTML to browser
@@ -130,7 +131,7 @@ const pageMetaData = {
     title: 'Home - Your App',
     description: 'Home page description',
     url: 'https://yourdomain.com'
-  }
+  } // Read the examples of usage in the code to understand this part
 };
 ```
 
@@ -177,21 +178,20 @@ docker run -p 3000:3000 fsx-app
 ## Troubleshooting
 
 ### Common Issues
-1. **Redis Connection Errors** - Check Redis server status
-2. **SSR Rendering Issues** - Check React component errors
+1. **Redis Connection Errors** - Check Redis server status and your in-app / env configs 
+2. **SSR Rendering Issues** - Check React component and console for errors
 3. **Build Errors** - Verify Vite configuration
 4. **Performance Issues** - Monitor Redis cache hit rates
 
-### Debug Mode
-Enable debug logging by setting `NODE_ENV=development`
+
 
 ## Future Improvements
 
 ### Planned Features
 - Image optimization API
-- Static site generation
 - Plugin system
 - CLI tool for project initialization
+- New React Compilation Engine
 
 ### Performance Enhancements
 - Edge caching

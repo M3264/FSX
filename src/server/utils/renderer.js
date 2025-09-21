@@ -81,6 +81,7 @@ class Renderer {
     return mod.default; 
   }
 
+  // WARNING : renderToString function WILL NOT work if u use React.Lazy and Suspense in your React project, that's why FSX uses now a Stream based Server Side Rendering for compatibility & Performance 
   async renderToString(url) {
     try {
       const context = {};

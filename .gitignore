@@ -3,8 +3,6 @@ node_modules
 pnpm-lock.yaml
 pnpm-workspace.yaml
 see.html
-Dockerfile
-docker-compose.yaml
 .*
 ancien.*
 src/client/public/assets/.vite/*
