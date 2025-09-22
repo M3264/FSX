@@ -13,11 +13,6 @@ RUN npm install pnpm -g
 RUN pnpm install
 
 
-
-ENV PM2_PUBLIC_KEY 6ly4glzdvtbqbv6
-ENV PM2_SECRET_KEY phd5mhn596a29r3
-
-
 COPY . .
 
 

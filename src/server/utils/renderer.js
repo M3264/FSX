@@ -155,6 +155,7 @@ class Renderer {
       const context = {};
       let pageKey = await this._getPageKey(url)
       const assets = new Resolver();
+      const cachekey = `SSR:${url}`; // TODO : Re implement caching 
       const pageMeta = getPageMeta(url);
       const cssFile = await assets.getCSS();
       const jsFiles = await assets.getChunksPerPage(pageKey);

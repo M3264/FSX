@@ -1,6 +1,6 @@
 {
   "name": "fsx",
-  "version": "0.9.10",
+  "version": "1.0.0-alpha",
   "scripts": {
     "build": "cd src/client && npx vite build --outDir ../../../dist/client --manifest && cd ../../ && npx vite build --ssr src/client/entry-server.tsx --outDir dist/server",
     "dev": "pnpm run build && nodemon src/server/server.js",

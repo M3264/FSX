@@ -29,7 +29,7 @@ function setStaticHeaders(res, filePath) {
   }
 }
 
-// Sécurité
+// Security
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {

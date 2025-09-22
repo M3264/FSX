@@ -1,6 +1,6 @@
-# FSX - Famous SSR Server for Vite React
+# FSX - The next Gen SSR based framework for React developers
 
-> **Get your React Website indexed quickly by Google and Bing** 🎯
+> **Get your React Website indexed quickly by Google and Bing** 
 
 A lightweight Server-Side Rendering (SSR) framework for React applications, designed for fast Google and Bing indexing.
 
@@ -8,39 +8,30 @@ A lightweight Server-Side Rendering (SSR) framework for React applications, desi
 
 FSX is a development project by **Famous-Tech**, a 14-year-old Haitian developer, created to practice web development and reduce  dependence  on AI coding assistants. It's like Next.js but lighter, with a focus on SEO optimization.
 
-## ✨ Features
+> **WHY CHOOSE FSX ?**
+
+Feel free to use FSX in these cases :
+
+  * You need High level SEO optimizations for your React App.
+  * You want SSR functionalities on your React Web App without using Next.js
+  * You want a plug & play framework to quickly access SSR benefits.
+  * You want total Freedom and control over the code that will be used in your Website
+  * You want total freedom on where you can easily host your App
+  * You want to experiment FULL STACK development without limitations, as you can have a Node.js Backend & And a React App in the same App while enjoying functionalities of both.
+  
+
+## Features
 
 - **Server-Side Rendering** with React 19
 - **SEO Optimization** with dynamic meta tags and Schema.org structured data
 - **Redis Caching** for pages and images
 - **Image Optimization** with WebP conversion (Python scripts)
 - **Security** with Helmet.js and Content Security Policy
-- **TypeScript Support** with Vite build system
+- **TypeScript Support** with Vite build system, as long FSX Compiler isn't ready
 - **Docker Ready** for easy deployment
 
-##  Project Structure
 
-```
-FSX/
-├── src/
-│   ├── server/           # Express.js SSR server
-│   │   ├── config/       # App configuration
-│   │   ├── routes/       # SSR routes and API endpoints
-│   │   ├── middleware/   # Custom middleware (U can do your own)
-│   │   └── utils/        # Server utilities (renderer, redis, etc.)
-│   └── client/           # React application (This is built on TOP of My PORTFOLIO LOL)
-│       ├── components/   # React components
-│       ├── pages/        # Page components
-│       ├── hooks/        # Custom React hooks
-│       └── context/      # React context providers
-├── __scripts__/          # Python optimization scripts
-│   ├── images.py         # Image download and WebP conversion
-│   └── structure.py      # Project structure generator
-└── docker/              # Docker configuration
-```
-<p style="color: gray;font-size: 10px">by the way, the Front End was vibe coded... (PS : I am a backend developer)</p>
-
-## 🛠️ Tech Stack
+## FSX Tech Stack
 
 - **Frontend**: React 19, TypeScript (JavaScript is natively supported), Tailwind CSS, Vite
 - **Backend**: Express.js, Node.js
@@ -49,14 +40,14 @@ FSX/
 - **Containerization**: Docker
 - **Scripts**: Python 3.8+ (For features FSX doesn't have yet like IMAGE OPTIMIZATION)
 
-## 🚀 Quick Start
+##  Quick Start
 
 ### Prerequisites
 
 - Node.js 18+
 - pnpm (recommended)
 - Redis server
-- Python 3.8+ (for image optimization scripts, i will create them in JS as soon as possible)
+- Python 3.8+ (for image optimization scripts, that will be available as plugin soon as possible)
 
 ### Installation
 
@@ -84,15 +75,15 @@ pnpm run dev
 
 Your application will be available at `http://localhost:3000`
 
-## 📝 Available Scripts
+## Available Scripts
 
-- `pnpm run dev` - Start development server with hot reload
+- `pnpm run dev` - Start development server, with a new build process, Useful if u updated the Front End
 - `pnpm run dev:server` - Start server only
 - `pnpm run build:client` - Build client assets
 - `pnpm run deploy` - Build and start production server
 - `pnpm run start` - Start with PM2
 
-## 🐳 Docker Deployment
+## Docker Deployment
 
 ```bash
 # Build and start with Docker Compose
@@ -103,50 +94,27 @@ docker build -t fsx-app .
 docker run -p 3000:3000 fsx-app
 ```
 
-## 🔧 Configuration
+## Configuration
 
-The project uses environment variables for configuration. Key settings include:
+The project doesn't need many environment variables. You can easily create a .env file as you make sure to include:
 
 - `PORT` - Server port (default: 3000)
 - `REDIS_URL` - Redis connection string
-- `NODE_ENV` - Environment (development/production)
 
-## 📊 Key Features Explained
 
-### Server-Side Rendering
-- Express.js server renders React components to HTML
-- Dynamic meta tags for each page
-- SEO-friendly URLs and content
-
-### Caching Strategy
-- **Page Cache**: 7-day TTL for SSR pages
-- **Image Cache**: 24-hour TTL for optimized images
-- Redis-based caching for performance
-
-### SEO Optimization
-- Schema.org structured data
-- Dynamic meta tags per page
-- Automatic sitemap and robots.txt
-- Open Graph and Twitter Cards support
-
-### Image Optimization
-- Python scripts for WebP conversion
-- Automatic image compression
-- Responsive image serving
-
-## 🧪 Development Notes
+## Development Notes
 
 This is a **development version** of FSX, not a production NPM package. It's designed for:
 
 - Learning and practicing web development
-- Understanding SSR concepts
-- Building SEO-optimized React applications
+- Understanding SSR, SSG, CSR and Hydration  concepts
+- Building SEO-optimized React applications for my clients as i am a web development freelancer
 - Reducing **MY** dependence on AI coding tools
 
-It's not completed yet.
-So if u wanna contribute, [check out TODO.MD](TODO.md) 
+FSX is  not completed yet, due to a lack of time as the main developer is still a school boy.
+So if u want to contribute, [check out TODO.MD](TODO.md) and the development guide : [development.md](docs/DEVELOPMENT.md) 
 
-## 👨‍💻 Author
+##  Author
 
 **Famous-Tech** - 14-year-old Haitian Developer
 
@@ -156,9 +124,6 @@ So if u wanna contribute, [check out TODO.MD](TODO.md)
 
 > *"Designed to practice and depend less on AI coding assistants"*
 
-## 📄 License
-
-This project is licensed under the MIT License.
 
 ---
 

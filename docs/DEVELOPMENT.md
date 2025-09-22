@@ -27,6 +27,8 @@ Soon be ready to see more features and especially FSX-COMPILER and React-FSX (Th
 
 **Main Components:**
 - `App.tsx` - Main React application with routing
+- `entry-client.tsx` - The client entry that will be used at the client's build step
+- `entry-server.tsx` - The server entry file that willbe used in the server's build step.
 - `components/` - Reusable React components
 - `pages/` - Page components for different routes
 - `hooks/` - Custom React hooks
@@ -37,7 +39,7 @@ Soon be ready to see more features and especially FSX-COMPILER and React-FSX (Th
 - React Router for client-side routing
 - Tailwind CSS for styling
 - Schema.org structured data
-- Performance monitoring hooks
+
 
 ## How FSX SSR algoriithm Works ?
 
@@ -53,7 +55,7 @@ Soon be ready to see more features and especially FSX-COMPILER and React-FSX (Th
    - Express server receives request
    - Checks Redis cache for existing HTML
    - If not cached, renders React app with `renderToPipeableStream` (Stream means all data will be sent **on-the-fly** to the client, that will improve TimeToFirstByte)
-   - Generates complete HTML with meta tags
+   - Generates complete HTML with meta tags using the js files from the build process
    - Caches the result in Redis
    - Returns HTML to browser
 
@@ -210,6 +212,5 @@ This is a development project for learning purposes. Contributions are welcome f
 ## Notes
 
 - This is a **development version**, not a production NPM package
-- Designed for learning and practicing web development
-- Focus on reducing dependence on AI coding tools
+- Designed for learning and practicing web development concepts, while reducing **MY** dependance on AI code generation tools
 - Built by a 14-year-old Haitian developer

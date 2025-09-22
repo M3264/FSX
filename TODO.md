@@ -11,5 +11,7 @@ As this Project isn't production ready, i wanted to share with everyone who give
 
 - [ ] Create a Render per component system to increase performance (Like it's what i do for living.. LOL)
 - [ ] Implent a smart cache expiration
-- [ ] Create FSX-Compiler, based on Vite but lighter to FSX uses only
-There are some codes that works only in my case, it's why i said DEVELOPMENT VERSION. PLS be indulgent & Ask or [CREATE AN ISSUE](https://github.com/Famous-Tech/FSX/issues) for any bugs found while trying this development version.
+- [ ] Create FSX-Compiler, based on Vite but lighter for FSX uses only
+
+
+**There are some codes that works only in my case, it's why i said DEVELOPMENT VERSION. PLS be indulgent & Ask or [CREATE AN ISSUE](https://github.com/Famous-Tech/FSX/issues) for any bugs found while trying this development version.**
