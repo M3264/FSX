@@ -37,7 +37,6 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.27.1",
-    "@types/express": "^5.0.3",
     "@types/react-dom": "^19.1.6",
     "@types/react-helmet": "^6.1.11",
     "@types/react-router-dom": "^5.3.3",

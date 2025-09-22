@@ -1,14 +1,14 @@
 # FSX - The next Gen SSR based framework for React developers
 
-> **Get your React Website indexed quickly by Google and Bing** 
+> # *Make your React Website indexable in seconds* 
 
 A lightweight Server-Side Rendering (SSR) framework for React applications, designed for fast Google and Bing indexing.
 
->  **What is FSX ?**
+>  ## What is FSX ?
 
 FSX is a development project by **Famous-Tech**, a 14-year-old Haitian developer, created to practice web development and reduce  dependence  on AI coding assistants. It's like Next.js but lighter, with a focus on SEO optimization.
 
-> **WHY CHOOSE FSX ?**
+> ## WHY CHOOSE FSX ?
 
 Feel free to use FSX in these cases :
 
@@ -18,7 +18,39 @@ Feel free to use FSX in these cases :
   * You want total Freedom and control over the code that will be used in your Website
   * You want total freedom on where you can easily host your App
   * You want to experiment FULL STACK development without limitations, as you can have a Node.js Backend & And a React App in the same App while enjoying functionalities of both.
-  
+
+
+
+> ## HOW TO USE FSX ?
+
+#### Important : This is a development repo for React-FSX, the Framework. This Guide is just providing enough infos to help you test it
+
+
+1. Clone the repo into a new folder
+   ```bash
+   git clone https://github.com/Famous-Tech/FSX my-fsx-app # Call it as you want, that doesn't matter
+   ```
+2. Enter in the Directory
+   ```bash
+    cd my-fsx-app # Make sure to use the same name you entered in the first step
+   ```
+
+3. Install the dependencies (I recommend using pnpm as package manager for this step)
+
+ ```bash
+ pnpm install 
+ ```
+
+#### If you don't have pnpm installed run :
+```bash
+npm i pnpm -g
+```
+
+4. Head to [TheSetupDoc](docs/setup.md) for further informations
+
+
+
+
 
 ## Features
 
