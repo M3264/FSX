@@ -58,12 +58,33 @@ async function SetCache(url, cachekey, fullHTML) {
 }
 
 class Renderer {
-  constructor(url, res) {
+  constructor(url, res, method) {
     this.url = url;
     this.res = res;
+    this.method = method
+  }
+
+  
+  async renderPage(method){
+    if (!method){
+      throw new Error("method is required, make sure to use the method parameter while calling the Renderer Method ")
+    }
+    if (method.match("stream")){
+      await this._renderToStream(this.url, this.res)
+    }
+    else if(method.match("string")) {
+      await this._renderToString(this.url)
+    }
   }
 
 
+  /*
+  The _getPageKey function is designed for a development use only
+  You will have to edit this for each new page
+  NOTICE : it's only used in the renderToPieapableStream method,
+  as each pages will have their one JavaScript file after the build process
+
+  */
   async _getPageKey(url){
     const keys = {
       "/": "../pages/Home.tsx",
@@ -72,7 +93,7 @@ class Renderer {
       "/services": "../pages/Services.tsx",
       "/about": "../pages/About.tsx"
     }
-    console.log(url)
+    // console.log(url)
     return keys[url] || null;
   }
   async _loadApp() {
@@ -81,14 +102,22 @@ class Renderer {
     return mod.default; 
   }
 
-  // WARNING : renderToString function WILL NOT work if u use React.Lazy and Suspense in your React project, that's why FSX uses now a Stream based Server Side Rendering for compatibility & Performance 
-  async renderToString(url) {
+  /* WARNING :
+    renderToString function will NOT work
+    if you are using React.Lazy and Suspense in your React project.
+    That's why FSX uses by default a Stream based Server Side Rendering
+    for compatibility & Performance.
+    Feel free to change the "method" parameter in `src/server/routes/ssr.js`
+    As FSX uses renderToPipeableStream by default, we highly recommend to use it
+    Because _renderToString may not work as excepted
+  */
+  async _renderToString(url) {
     try {
       const context = {};
       const cachekey = `SSR:${url}`;
       const assets = new Resolver();
-      const cssFile = assets.getCSS();
-      const jsFile = assets.getBundle();
+      const cssFile = await assets.getCSS();
+      const jsFile = await assets.getSingleBundle(); 
       const cachedHTML = await redis.get(cachekey);
 
       if (cachedHTML) {
@@ -150,7 +179,7 @@ class Renderer {
     }
   }
 
-  async renderToStream(url, res) {
+  async _renderToStream(url, res) {
     try {
       const context = {};
       let pageKey = await this._getPageKey(url)

@@ -1,35 +1,34 @@
 # 📁 Project Structure & Code Statistics
 
-**Generated on:** 2025-09-21 11:10:11  
+**Generated on:** 2025-09-23 11:35:35  
 **Root Directory:** `/home/famous-tech/Desktop/FSX`
 
 ## 📊 Code Statistics Summary
 
-| Metric | Count |
-|--------|-------|
-| 📁 Total Directories | 21 |
-| 📄 Total Files | 66 |
-| 📝 Total Lines | 3,954 |
-| 💻 Code Lines | 3,385 |
-| 🔹 Blank Lines | 442 |
-| 💬 Comment Lines | 127 |
+| Metric               | Count |
+| -------------------- | ----- |
+| 📁 Total Directories | 21    |
+| 📄 Total Files       | 66    |
+| 📝 Total Lines       | 4,103 |
+| 💻 Code Lines        | 3,491 |
+| 🔹 Blank Lines       | 488   |
+| 💬 Comment Lines     | 124   |
 
 ## 🔍 Lines of Code by Language
 
-| Language | Files | Total Lines | Code Lines | Blank Lines | Comment Lines |
-|----------|-------|-------------|------------|-------------|---------------|
-| React (TSX) | 15 | 1,380 | 1,258 | 99 | 23 |
-| JavaScript | 17 | 1,039 | 891 | 110 | 38 |
-| Python | 2 | 731 | 567 | 105 | 59 |
-| Markdown | 5 | 556 | 445 | 111 | 0 |
-| TypeScript | 2 | 55 | 43 | 5 | 7 |
-| JSON | 1 | 53 | 53 | 0 | 0 |
-| XML | 1 | 52 | 47 | 5 | 0 |
-| HTML | 1 | 46 | 44 | 2 | 0 |
-| YAML | 1 | 27 | 24 | 3 | 0 |
-| YAML | 1 | 10 | 9 | 1 | 0 |
-| CSS | 2 | 5 | 4 | 1 | 0 |
-
+| Language    | Files | Total Lines | Code Lines | Blank Lines | Comment Lines |
+| ----------- | ----- | ----------- | ---------- | ----------- | ------------- |
+| React (TSX) | 15    | 1,376       | 1,255      | 98          | 23            |
+| JavaScript  | 16    | 1,035       | 898        | 102         | 35            |
+| Python      | 2     | 731         | 567        | 105         | 59            |
+| Markdown    | 6     | 714         | 548        | 166         | 0             |
+| TypeScript  | 2     | 55          | 43         | 5           | 7             |
+| XML         | 1     | 52          | 47         | 5           | 0             |
+| JSON        | 1     | 52          | 52         | 0           | 0             |
+| HTML        | 1     | 46          | 44         | 2           | 0             |
+| YAML        | 1     | 27          | 24         | 3           | 0             |
+| YAML        | 1     | 10          | 9          | 1           | 0             |
+| CSS         | 2     | 5           | 4          | 1           | 0             |
 
 ## 🌳 Directory Tree
 
@@ -40,7 +39,8 @@ FSX/
 │   ├── 📝 readme.md (103B) [3 lines]
 │   └── 🐍 structure.py (17.2KB) [559 lines]
 ├── 📖 docs/
-│   └── 📝 DEVELOPMENT.md (5.5KB) [215 lines]
+│   ├── 📝 DEVELOPMENT.md (5.7KB) [216 lines]
+│   └── 📝 setup.md (5.3KB) [153 lines]
 ├── 📦 node_modules/
 │       📝 (contents hidden)
 ├── 📁 src/
@@ -68,9 +68,9 @@ FSX/
 │   │   │       ├── 📜 main-Bf0jqIoa.js (273.1KB) [171 lines]
 │   │   │       ├── 📄 main-Bf0jqIoa.js.map (1.4MB)
 │   │   │       └── 🎨 main-DwVc8443.css (7.2KB) [1 lines]
-│   │   ├── ⚛️ App.tsx (1.3KB) [36 lines]
+│   │   ├── ⚛️ App.tsx (1.2KB) [36 lines]
 │   │   ├── ⚛️ entry-client.tsx (351B) [15 lines]
-│   │   ├── ⚛️ entry-server.tsx (210B) [11 lines]
+│   │   ├── ⚛️ entry-server.tsx (190B) [7 lines]
 │   │   ├── 🎨 index.css (60B) [4 lines]
 │   │   ├── ⚛️ main.tsx (348B) [14 lines]
 │   │   ├── 📜 postcss.config.js (80B) [6 lines]
@@ -98,53 +98,52 @@ FSX/
 │   │   ├── 📂 middleware/
 │   │   │   └── 📜 errorHandler.js (463B) [15 lines]
 │   │   ├── 📂 routes/
-│   │   │   ├── 📜 cache.js (732B) [37 lines]
 │   │   │   ├── 📜 health.js (282B) [13 lines]
-│   │   │   ├── 📜 index.js (377B) [16 lines]
-│   │   │   └── 📜 ssr.js (1.3KB) [48 lines]
+│   │   │   ├── 📜 index.js (273B) [13 lines]
+│   │   │   └── 📜 ssr.js (1.6KB) [55 lines]
 │   │   ├── 🔧 utils/
 │   │   │   ├── 📜 headers.html.js (4.0KB) [107 lines]
 │   │   │   ├── 📜 redis.js (567B) [26 lines]
-│   │   │   ├── 📜 renderer.js (6.4KB) [216 lines]
-│   │   │   └── 📜 resolver.js (2.4KB) [81 lines]
+│   │   │   ├── 📜 renderer.js (7.3KB) [245 lines]
+│   │   │   └── 📜 resolver.js (2.5KB) [82 lines]
 │   │   ├── 📂 www/
 │   │   │   ├── 📄 ac989d69ab53452caf60e781d8d74d62.txt (32B)
 │   │   │   ├── 📄 robots.txt (137B)
 │   │   │   ├── 📄 site.webmanifest (305B)
 │   │   │   └── 📄 sitemap.xml (1.7KB) [52 lines]
-│   │   └── 📜 server.js (609B) [17 lines]
+│   │   └── 📜 server.js (379B) [16 lines]
 │   └── 🌐 index.html (2.8KB) [46 lines]
 ├── 📜 ancien.server.js (4.3KB) [119 lines]
 ├── 🐳 docker-compose.yml (469B) [27 lines]
-├── 📄 Dockerfile (282B)
-├── 📦 package.json (1.7KB) [53 lines]
+├── 📄 Dockerfile (209B)
+├── 📦 package.json (1.7KB) [52 lines]
 ├── ⚙️ pnpm-workspace.yaml (183B) [10 lines]
-├── 📝 README.md (4.8KB) [167 lines]
-├── 📝 structure.md (6.7KB) [156 lines]
+├── 📝 README.md (4.6KB) [164 lines]
+├── 📝 structure.md (6.8KB) [160 lines]
 ├── 📜 test.js (188B) [9 lines]
-└── 📝 TODO.md (962B) [15 lines]
+└── 📝 TODO.md (1.1KB) [18 lines]
 ```
 
 ## 📋 Legend
 
-| Icon | Type | Description |
-|------|------|-------------|
-| 📂 | Directory | Regular folder |
-| 📁 | Directory | Source code folder |
-| 📦 | Directory/File | Package or archive |
-| 🐍 | File | Python file |
-| 📜 | File | JavaScript file |
-| 📘 | File | TypeScript file |
-| ⚛️ | File | React component |
-| 🌐 | File | HTML file |
-| 🎨 | File | CSS/SCSS file |
-| 📝 | File | Markdown file |
-| 📋 | File | JSON file |
-| ⚙️ | File | Configuration file |
-| 🖼️ | File | Image file |
-| 📖 | File | Documentation |
-| 🧪 | Directory | Test files |
-| 🔧 | File | Build/utility file |
+| Icon | Type           | Description        |
+| ---- | -------------- | ------------------ |
+| 📂   | Directory      | Regular folder     |
+| 📁   | Directory      | Source code folder |
+| 📦   | Directory/File | Package or archive |
+| 🐍   | File           | Python file        |
+| 📜   | File           | JavaScript file    |
+| 📘   | File           | TypeScript file    |
+| ⚛️   | File           | React component    |
+| 🌐   | File           | HTML file          |
+| 🎨   | File           | CSS/SCSS file      |
+| 📝   | File           | Markdown file      |
+| 📋   | File           | JSON file          |
+| ⚙️   | File           | Configuration file |
+| 🖼️   | File           | Image file         |
+| 📖   | File           | Documentation      |
+| 🧪   | Directory      | Test files         |
+| 🔧   | File           | Build/utility file |
 
 ## 📝 Notes
 
@@ -157,4 +156,5 @@ FSX/
 - Generated using Python directory structure generator
 
 ---
-*This structure was automatically generated. To regenerate, run the script again.*
+
+_This structure was automatically generated. To regenerate, run the script again._

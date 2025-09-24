@@ -104,7 +104,7 @@ the command above will build both (Client's and Server's files to provide an opt
 
 There's the excepted outpout :
 
-```logs
+```console
 
 └──╼ $pnpm run build
 
@@ -136,9 +136,16 @@ Now you can easily head back to the Readme for execution and deployment.
 
 
 2. If you don't want to use Lazy imports and suspense
-Just let your React App how is it (You still have to add entry files)
+There are rhe steps to use FSX
 
-Additional infos : 
+* Let your React App how it's
+* add the two entry files like in the example above
+* in `src/server/routes/ssr.js` , change the method from "stream" to "string"
+* Test it, if it doesn't work or is thwrowing any error, open an issue on the Github repo or contact the Owner directly (Via mail or Whatsapp) 
+
+
+### Additional infos : 
+
 - Change the custom SEO Metadatas for each routes at `src/server/utils/renderer.js` and `src/server/utils/headers.html.js`
 - Edit the {keys} at `src/server/utils/renderer.js` (The aync _getPageKey function in the Renderer class)
 - Read the code. test it, and edit what doesn't fit to you bcs it's not mine, not my communuty's, but **OUR** code.

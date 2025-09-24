@@ -1,6 +1,5 @@
 const { readFile } = require("fs/promises");
 const path = require("path");
-const { parser } = require("vite-manifest-parser")
 
 class Resolver {
   constructor() {
@@ -18,14 +17,15 @@ class Resolver {
       return null;
     }
   }
-
-  async getBundle() {
+  
+  // the getSingleBundle function is esecially for renderToString usage, when all pages and modules are in a single file
+  async getSingleBundle() {
     const manifest = await this._readManifest();
     if (!manifest) return null;
 
     const result = manifest["../main.tsx"];
     if (result && result.file) {
-      // Return manifest file path (e.g., This could be a main-xxx file)
+      // Return manifest file path (e.g., a main-xxx file)
       return result.file;
     }
     return null;

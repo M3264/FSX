@@ -7,10 +7,11 @@ As this Project isn't production ready, i wanted to share with everyone who give
 - [x] image caching (will switch to stream soon)
 - [x] automatic static delivery for important static files like sitemap.xml
 - [x] Create a HTML page streaming method that will considerably reduce the Time to First byte (TTFB)
+- [x] Create an automatic renderer that renders the page using the method it's called with, (Instead of editing the whole code to change the rendering method)
+- [x] Create a Render per component / pages system to increase performance (Like it's what i do for living.. LOL)
 ### Next-Step
 
-- [ ] Create a Render per component system to increase performance (Like it's what i do for living.. LOL)
-- [ ] Implent a smart cache expiration
+- [ ] Implement a smart cache expiration system
 - [ ] Create FSX-Compiler, based on Vite but lighter for FSX uses only
 
 

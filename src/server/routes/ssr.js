@@ -22,12 +22,19 @@ router.get("{/*splat}", async (req, res) => {
     // Special rules
     if (req.url === "/robots.txt") {
       return res.status(200).sendFile(robotsFile);
-    } else if (req.url.includes("sitemap.xml")) {
+    } else if (req.url.includes("sitemap.xml")) { // automatic sitemap creation comming soon...
       return res.status(200).sendFile(sitemapFile);
     }
-
+  const method = process.env.RENDERING_METHOD || "stream" 
+  /*
+    Use method = "string" to wait for the HTML to be rendered,
+    cached and finally sent to client.
+    And the default configuration
+    method = "stream" to send all HTML on the fly (Even better for SEO)
+    
+  */
     // Default SSR rendering
-    await new Renderer(req.url, res).renderToStream(req.url, res);
+    await new Renderer(req.url, res, method).renderPage(method);
   } catch (error) {
     console.error("SSR Error:", error);
     res.status(500).send(`

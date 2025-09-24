@@ -7,10 +7,10 @@ const app = require('./config/app');
 
 const routes = require('./routes');
 
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 app.use(routes);
 
 app.listen(PORT, () => {
-  console.log(`FAMOUS SSR server is running on http://localhost:${PORT}`);
+  console.log(`FSX server is running on http://localhost:${PORT}`);
 });
