@@ -105,7 +105,7 @@ docker run -d -p 6379:6379 redis:alpine
 pnpm run dev
 ```
 
-Your application will be available at `http://localhost:3000`
+Your application will be available at `http://localhost:3000` (7000 if it's via docker-compose)
 
 ## Available Scripts
 
@@ -123,7 +123,7 @@ docker-compose up -d
 
 # Or build manually
 docker build -t fsx-app .
-docker run -p 3000:3000 fsx-app
+docker run -p 3000:7000 fsx-app
 ```
 
 ## Configuration
