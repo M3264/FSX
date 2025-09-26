@@ -5,7 +5,7 @@ services:
     build: .
     container_name: fsx-prod
     ports:
-      - "3000:7000"
+      - "3003:7000"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
